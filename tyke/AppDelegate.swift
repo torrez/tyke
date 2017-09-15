@@ -11,43 +11,76 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    //var statusItem: NSStatusItem?
-
     let popover = NSPopover()
     let statusItem = NSStatusBar.system().statusItem(withLength: -2)
+    var evc: EditorViewController!
+    var smart_quote_menu_item: NSMenuItem!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         popover.behavior = NSPopoverBehavior.transient
         popover.animates = false
-        //self.statusItem = NSStatusBar.system().statusItem(withLength:-1)
-
+        
         if let button = statusItem.button {
             button.image = NSImage(named: "dabutton")
             button.image?.size = NSSize(width: 20, height: 18)
             button.image?.isTemplate = true
-            button.action =  #selector(AppDelegate.togglePopover(_:))
+            //button.action =  #selector(AppDelegate.togglePopover(_:))
+            button.action = #selector(self.statusItemClicked(sender:))
+            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
         }
         
-        popover.contentViewController = EditorViewController(nibName: "EditorViewController", bundle: nil)
+
+        evc = EditorViewController(nibName: "EditorViewController", bundle: nil)
+        popover.contentViewController = evc
         
-//        self.statusItem = NSStatusBar.system().statusItem(withLength:-1)
-//        
-//        // Set the text that appears in the menu bar
-//        self.statusItem!.title = "Star!"
-//        self.statusItem?.image = NSImage(named: "Star")
-//        self.statusItem?.image?.size = NSSize(width: 20, height: 18)
-//        self.statusItem?.length = 70
-//        // image should be set as tempate so that it changes when the user sets the menu bar to a dark theme
-//        self.statusItem?.image?.isTemplate = true
-//        
-//        // Set the menu that should appear when the item is clicked
-//        //self.statusItem!.menu = self.menu
-//        self.statusItem!.menu = self.editor
-//
-//        
-//        // Set if the item should change color when clicked
-//        self.statusItem!.highlightMode = true
         
+        //This is bad and you should feel bad
+        togglePopover(nil)
+        togglePopover(nil)
+
+        //HANDLE right click https://github.com/craigfrancis/datetime/blob/master/xcode/DateTime/AppDelegate.swift
+
+
+        //Handle when smart quotes is turned on or off in the view
+        let nc = NotificationCenter.default
+        nc.addObserver(forName:Notification.Name(rawValue:"SmartQuotesWasTurnedOn"),
+                       object:nil, queue:nil,
+                       using:smartQuotesWasTurnedOn)
+        nc.addObserver(forName:Notification.Name(rawValue:"SmartQuotesWasTurnedOff"),
+                       object:nil, queue:nil,
+                       using:smartQuotesWasTurnedOff)
+    }
+    
+
+    
+    func statusItemClicked(sender: NSStatusBarButton!){
+        let event:NSEvent! = NSApp.currentEvent!
+        if (event.type == NSEventType.rightMouseUp) {
+            closePopover(sender: nil)
+            
+            statusItem.highlightMode = true // Highlight bodge: Stop the highlight flicker (see async call below).
+            statusItem.button?.isHighlighted = true
+            
+            let contextMenu = NSMenu();
+            smart_quote_menu_item = NSMenuItem(title: "Smart Quotes", action: #selector(self.toggleSmartQuotes(sender:)), keyEquivalent: "")
+            
+            if (UserDefaults.standard.bool(forKey:"use_smart_quotes")){
+                smart_quote_menu_item.state = NSOnState
+            }else{
+                smart_quote_menu_item.state = NSOffState
+            }
+            contextMenu.addItem(smart_quote_menu_item)
+            contextMenu.addItem(NSMenuItem.separator())
+            contextMenu.addItem(NSMenuItem(title: "Quit", action: #selector(self.quit(sender:)), keyEquivalent: "q"))
+            
+            statusItem.menu = contextMenu
+            statusItem.popUpMenu(contextMenu)
+            statusItem.menu = nil // Otherwise clicks won't be processed again
+        }
+        else{
+            //statusItemClicked(sender:)
+            togglePopover(sender)
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -72,6 +105,37 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             showPopover(sender:sender)
         }
+    }
+    
+    func quit(sender: AnyObject?) {
+        NSApplication.shared().terminate(nil)
+    }
+
+    func toggleSmartQuotes(sender: AnyObject?){
+        /*let use_smart_quotes = UserDefaults.standard.bool(forKey:"use_smart_quotes")
+
+        
+        if (use_smart_quotes){
+            smart_quote_menu_item.state = NSOffState
+        }else{
+            smart_quote_menu_item.state = NSOnState
+        }*/
+        
+        let nc = NotificationCenter.default
+        nc.post(name:Notification.Name(rawValue:"ToggleSmartQuotes"),
+                object: nil,
+                userInfo: ["message":"Hello there!", "date":Date()])
+    }
+    
+    
+    func smartQuotesWasTurnedOn(notification:Notification) -> Void{
+        smart_quote_menu_item.state = NSOnState
+        UserDefaults.standard.set(true, forKey: "use_smart_quotes")
+
+    }
+    func smartQuotesWasTurnedOff(notification:Notification) -> Void{
+        smart_quote_menu_item.state = NSOnState
+        UserDefaults.standard.set(false, forKey: "use_smart_quotes")
     }
 }
 
