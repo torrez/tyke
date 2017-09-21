@@ -15,6 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusItem = NSStatusBar.system().statusItem(withLength: -2)
     var evc: EditorViewController!
     var smart_quote_menu_item: NSMenuItem!
+    var hotKey: HotKey!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         popover.behavior = NSPopoverBehavior.transient
@@ -141,7 +142,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func setupHotKeys(){
-        
+        self.hotKey = HotKey(key: .r, modifiers: [.command, .option])
+        self.hotKey.keyDownHandler = {
+            self.togglePopover(nil)
+        }
     }
 }
 
