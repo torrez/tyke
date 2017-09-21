@@ -24,6 +24,36 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
+                                        <menuItem title="Paste" keyEquivalent="v" id="7Gl-KK-0oO">
+                                            <connections>
+                                                <action selector="paste:" target="Ady-hI-5gd" id="gjB-lc-yZX"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Cut" keyEquivalent="x" id="sP4-Nb-DKo">
+                                            <connections>
+                                                <action selector="cut:" target="Ady-hI-5gd" id="q58-k4-hGt"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Copy" keyEquivalent="c" id="q0z-W6-Ybg">
+                                            <connections>
+                                                <action selector="copy:" target="Ady-hI-5gd" id="S1f-ah-dSE"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Undo" keyEquivalent="z" id="Ptx-6Y-xc2">
+                                            <connections>
+                                                <action selector="undo:" target="Ady-hI-5gd" id="QH8-lm-LE9"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Redo" keyEquivalent="Z" id="Ic7-Bk-LGf">
+                                            <connections>
+                                                <action selector="redo:" target="Ady-hI-5gd" id="a3o-M3-oST"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Select All" keyEquivalent="a" id="hgk-od-WX2">
+                                            <connections>
+                                                <action selector="selectAll:" target="Ady-hI-5gd" id="3ZB-hP-hj8"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Quit tyke" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>

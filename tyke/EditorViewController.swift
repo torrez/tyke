@@ -59,15 +59,6 @@ class EditorViewController: NSViewController, NSTextViewDelegate {
     
     func didToggleSmartQuotes(notification:Notification) -> Void{
         self.editor.toggleAutomaticQuoteSubstitution(nil)
-        
-        
-        /*if (self.editor.isAutomaticQuoteSubstitutionEnabled){
-            self.editor.isAutomaticQuoteSubstitutionEnabled = false
-            UserDefaults.standard.set(false, forKey: "use_smart_quotes")
-        }else{
-            self.editor.isAutomaticQuoteSubstitutionEnabled = true
-            UserDefaults.standard.set(true, forKey: "use_smart_quotes")
-        }*/
     }
     
 

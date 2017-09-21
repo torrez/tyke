@@ -43,12 +43,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         //Handle when smart quotes is turned on or off in the view
         let nc = NotificationCenter.default
-        nc.addObserver(forName:Notification.Name(rawValue:"SmartQuotesWasTurnedOn"),
-                       object:nil, queue:nil,
-                       using:smartQuotesWasTurnedOn)
-        nc.addObserver(forName:Notification.Name(rawValue:"SmartQuotesWasTurnedOff"),
-                       object:nil, queue:nil,
-                       using:smartQuotesWasTurnedOff)
+        nc.addObserver(forName:Notification.Name(rawValue:"SmartQuotesWasTurnedOn"), object:nil, queue:nil, using:smartQuotesWasTurnedOn)
+        nc.addObserver(forName:Notification.Name(rawValue:"SmartQuotesWasTurnedOff"), object:nil, queue:nil, using:smartQuotesWasTurnedOff)
+        
+        setupHotKeys()
     }
     
 
@@ -129,13 +127,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func smartQuotesWasTurnedOn(notification:Notification) -> Void{
-        smart_quote_menu_item.state = NSOnState
+        if let sqmi = smart_quote_menu_item {
+            sqmi.state = NSOnState
+        }
         UserDefaults.standard.set(true, forKey: "use_smart_quotes")
 
     }
     func smartQuotesWasTurnedOff(notification:Notification) -> Void{
-        smart_quote_menu_item.state = NSOnState
+        if let sqmi = smart_quote_menu_item {
+            sqmi.state = NSOnState
+        }
         UserDefaults.standard.set(false, forKey: "use_smart_quotes")
+    }
+    
+    func setupHotKeys(){
+        
     }
 }
 
