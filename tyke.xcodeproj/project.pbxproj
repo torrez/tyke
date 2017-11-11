@@ -12,11 +12,14 @@
 		652006141F463E1700D9FD2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 652006121F463E1700D9FD2F /* Main.storyboard */; };
 		6520061D1F46537200D9FD2F /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6520061B1F46537200D9FD2F /* EditorViewController.swift */; };
 		6520061E1F46537200D9FD2F /* EditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6520061C1F46537200D9FD2F /* EditorViewController.xib */; };
+		6540A37A1F74445500797667 /* NoBloopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6540A3791F74445500797667 /* NoBloopView.swift */; };
 		65D87A031F7363890069B2F1 /* NSEventModifierFlags+HotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D879FE1F7363880069B2F1 /* NSEventModifierFlags+HotKey.swift */; };
 		65D87A041F7363890069B2F1 /* HotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D879FF1F7363890069B2F1 /* HotKey.swift */; };
 		65D87A051F7363890069B2F1 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D87A001F7363890069B2F1 /* Key.swift */; };
 		65D87A061F7363890069B2F1 /* HotKeysController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D87A011F7363890069B2F1 /* HotKeysController.swift */; };
 		65D87A071F7363890069B2F1 /* KeyCombo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D87A021F7363890069B2F1 /* KeyCombo.swift */; };
+		65D87A0A1F7380090069B2F1 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D87A081F7380090069B2F1 /* PreferencesViewController.swift */; };
+		65D87A0B1F7380090069B2F1 /* PreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65D87A091F7380090069B2F1 /* PreferencesViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,11 +30,14 @@
 		652006151F463E1700D9FD2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6520061B1F46537200D9FD2F /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		6520061C1F46537200D9FD2F /* EditorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditorViewController.xib; sourceTree = "<group>"; };
+		6540A3791F74445500797667 /* NoBloopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoBloopView.swift; sourceTree = "<group>"; };
 		65D879FE1F7363880069B2F1 /* NSEventModifierFlags+HotKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSEventModifierFlags+HotKey.swift"; sourceTree = "<group>"; };
 		65D879FF1F7363890069B2F1 /* HotKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKey.swift; sourceTree = "<group>"; };
 		65D87A001F7363890069B2F1 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		65D87A011F7363890069B2F1 /* HotKeysController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeysController.swift; sourceTree = "<group>"; };
 		65D87A021F7363890069B2F1 /* KeyCombo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCombo.swift; sourceTree = "<group>"; };
+		65D87A081F7380090069B2F1 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		65D87A091F7380090069B2F1 /* PreferencesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +73,9 @@
 				6520060C1F463E1700D9FD2F /* AppDelegate.swift */,
 				6520061B1F46537200D9FD2F /* EditorViewController.swift */,
 				6520061C1F46537200D9FD2F /* EditorViewController.xib */,
+				65D87A081F7380090069B2F1 /* PreferencesViewController.swift */,
+				65D87A091F7380090069B2F1 /* PreferencesViewController.xib */,
+				6540A3791F74445500797667 /* NoBloopView.swift */,
 				652006101F463E1700D9FD2F /* Assets.xcassets */,
 				652006121F463E1700D9FD2F /* Main.storyboard */,
 				652006151F463E1700D9FD2F /* Info.plist */,
@@ -141,6 +150,7 @@
 				6520061E1F46537200D9FD2F /* EditorViewController.xib in Resources */,
 				652006111F463E1700D9FD2F /* Assets.xcassets in Resources */,
 				652006141F463E1700D9FD2F /* Main.storyboard in Resources */,
+				65D87A0B1F7380090069B2F1 /* PreferencesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,10 +164,12 @@
 				6520060D1F463E1700D9FD2F /* AppDelegate.swift in Sources */,
 				65D87A051F7363890069B2F1 /* Key.swift in Sources */,
 				65D87A071F7363890069B2F1 /* KeyCombo.swift in Sources */,
+				65D87A0A1F7380090069B2F1 /* PreferencesViewController.swift in Sources */,
 				6520061D1F46537200D9FD2F /* EditorViewController.swift in Sources */,
 				65D87A061F7363890069B2F1 /* HotKeysController.swift in Sources */,
 				65D87A031F7363890069B2F1 /* NSEventModifierFlags+HotKey.swift in Sources */,
 				65D87A041F7363890069B2F1 /* HotKey.swift in Sources */,
+				6540A37A1F74445500797667 /* NoBloopView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +228,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -260,7 +272,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

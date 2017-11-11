@@ -55,8 +55,7 @@ class EditorViewController: NSViewController, NSTextViewDelegate {
             }
         }
     }
-    
-    
+
     func didToggleSmartQuotes(notification:Notification) -> Void{
         self.editor.toggleAutomaticQuoteSubstitution(nil)
     }

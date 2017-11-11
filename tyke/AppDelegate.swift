@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let popover = NSPopover()
     let statusItem = NSStatusBar.system().statusItem(withLength: -2)
     var evc: EditorViewController!
+    var pvc: PreferencesViewController!
     var smart_quote_menu_item: NSMenuItem!
     var hotKey: HotKey!
     
@@ -34,7 +35,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         evc = EditorViewController(nibName: "EditorViewController", bundle: nil)
         popover.contentViewController = evc
         
-        
+        pvc = PreferencesViewController(nibName: "PreferencesViewController", bundle:nil)
+
         //This is bad and you should feel bad
         togglePopover(nil)
         togglePopover(nil)
@@ -48,6 +50,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         nc.addObserver(forName:Notification.Name(rawValue:"SmartQuotesWasTurnedOff"), object:nil, queue:nil, using:smartQuotesWasTurnedOff)
         
         setupHotKeys()
+        
+        
+        pvc.presentViewControllerAsModalWindow(pvc)
+
     }
     
 
@@ -69,6 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 smart_quote_menu_item.state = NSOffState
             }
             contextMenu.addItem(smart_quote_menu_item)
+            contextMenu.addItem(NSMenuItem(title: "Preferences", action: #selector(self.showPreferences(sender:)), keyEquivalent: "p"))
             contextMenu.addItem(NSMenuItem.separator())
             contextMenu.addItem(NSMenuItem(title: "Quit", action: #selector(self.quit(sender:)), keyEquivalent: "q"))
             
@@ -126,6 +133,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 userInfo: ["message":"Hello there!", "date":Date()])
     }
     
+    func showPreferences(sender: AnyObject?){
+        pvc.presentViewControllerAsModalWindow(pvc)
+    }
+    
     
     func smartQuotesWasTurnedOn(notification:Notification) -> Void{
         if let sqmi = smart_quote_menu_item {
@@ -142,9 +153,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func setupHotKeys(){
-        self.hotKey = HotKey(key: .r, modifiers: [.command, .option])
-        self.hotKey.keyDownHandler = {
-            self.togglePopover(nil)
+        
+        if let hktest:Key = Key(string:"r"){
+            self.hotKey = HotKey(key: hktest, modifiers: [.command, .option])
+            self.hotKey.keyDownHandler = {
+                self.togglePopover(nil)
+            }
         }
     }
 }
