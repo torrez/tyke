@@ -12,14 +12,14 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     let popover = NSPopover()
-    let statusItem = NSStatusBar.system().statusItem(withLength: -2)
+    let statusItem = NSStatusBar.system.statusItem(withLength: -2)
     var evc: EditorViewController!
     var pvc: PreferencesViewController!
     var smart_quote_menu_item: NSMenuItem!
     var hotKey: HotKey!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        popover.behavior = NSPopoverBehavior.transient
+        popover.behavior = NSPopover.Behavior.transient
         popover.animates = false
         
         if let button = statusItem.button {
@@ -52,15 +52,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupHotKeys()
         
         
-        pvc.presentViewControllerAsModalWindow(pvc)
+        pvc.presentAsModalWindow(pvc)
 
     }
     
 
     
-    func statusItemClicked(sender: NSStatusBarButton!){
+    @objc func statusItemClicked(sender: NSStatusBarButton!){
         let event:NSEvent! = NSApp.currentEvent!
-        if (event.type == NSEventType.rightMouseUp) {
+        if (event.type == NSEvent.EventType.rightMouseUp) {
             closePopover(sender: nil)
             
             statusItem.highlightMode = true // Highlight bodge: Stop the highlight flicker (see async call below).
@@ -70,9 +70,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             smart_quote_menu_item = NSMenuItem(title: "Smart Quotes", action: #selector(self.toggleSmartQuotes(sender:)), keyEquivalent: "")
             
             if (UserDefaults.standard.bool(forKey:"use_smart_quotes")){
-                smart_quote_menu_item.state = NSOnState
+                smart_quote_menu_item.state = NSControl.StateValue.on
             }else{
-                smart_quote_menu_item.state = NSOffState
+                smart_quote_menu_item.state = NSControl.StateValue.off
             }
             contextMenu.addItem(smart_quote_menu_item)
             contextMenu.addItem(NSMenuItem(title: "Preferences", action: #selector(self.showPreferences(sender:)), keyEquivalent: "p"))
@@ -96,7 +96,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func showPopover(sender: AnyObject?) {
         if let button = statusItem.button {
-            NSApplication.shared().activate(ignoringOtherApps: true)
+            NSApplication.shared.activate(ignoringOtherApps: true)
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }
     }
@@ -113,11 +113,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    func quit(sender: AnyObject?) {
-        NSApplication.shared().terminate(nil)
+    @objc func quit(sender: AnyObject?) {
+        NSApplication.shared.terminate(nil)
     }
 
-    func toggleSmartQuotes(sender: AnyObject?){
+    @objc func toggleSmartQuotes(sender: AnyObject?){
         /*let use_smart_quotes = UserDefaults.standard.bool(forKey:"use_smart_quotes")
 
         
@@ -133,21 +133,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 userInfo: ["message":"Hello there!", "date":Date()])
     }
     
-    func showPreferences(sender: AnyObject?){
-        pvc.presentViewControllerAsModalWindow(pvc)
+    @objc func showPreferences(sender: AnyObject?){
+        pvc.presentAsModalWindow(pvc)
     }
     
     
     func smartQuotesWasTurnedOn(notification:Notification) -> Void{
         if let sqmi = smart_quote_menu_item {
-            sqmi.state = NSOnState
+            sqmi.state = NSControl.StateValue.on
         }
         UserDefaults.standard.set(true, forKey: "use_smart_quotes")
 
     }
     func smartQuotesWasTurnedOff(notification:Notification) -> Void{
         if let sqmi = smart_quote_menu_item {
-            sqmi.state = NSOnState
+            sqmi.state = NSControl.StateValue.off
         }
         UserDefaults.standard.set(false, forKey: "use_smart_quotes")
     }
