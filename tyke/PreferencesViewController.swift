@@ -115,8 +115,8 @@ class PreferencesViewController: NSViewController {
         //Set up this hot key!
         if let newHotKey:Key = Key(string:event.charactersIgnoringModifiers!){
             
-            self.hotKey = HotKey(key: newHotKey, modifiers: event.modifierFlags)
-            self.hotKey.keyDownHandler = {
+            let hotKey = HotKey(key: newHotKey, modifiers: event.modifierFlags)
+            hotKey.keyDownHandler = {
                 print("do a popup")
             }
         }
