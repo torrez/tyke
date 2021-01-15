@@ -64,7 +64,7 @@ class PreferencesViewController: NSViewController {
     }
     
     func makeButtonString(event: NSEvent) -> String {
-        var buttonText: String = ""
+        let buttonText: String = ""
         
         return buttonText
     }
