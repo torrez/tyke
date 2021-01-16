@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var evc: EditorViewController!
     var pvc: PreferencesViewController!
+    var pasteboard = NSPasteboard.general
     var smart_quote_menu_item: NSMenuItem!
     var showHotKey: HotKey?
     var clipboardHotKey: HotKey?
@@ -139,7 +140,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func setupHotKeys() {
-        // Show and Clipboard hotkeys set to initial values
+        // Set show and Clipboard hotkeys to initial values
         
         showHotKey = HotKey(keyCombo: KeyCombo(key: .s, modifiers: [.command, .option]))
         clipboardHotKey = HotKey(keyCombo: KeyCombo(key: .c, modifiers: [.command, .option]))
@@ -150,7 +151,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.showHotKey?.keyDownHandler = { self.togglePopover(nil) }
         
         self.clipboardHotKey?.keyDownHandler = {
-            // TBD
+            
+            let textToCopy: [NSString] = NSArray.init(object: self.evc.editor.textStorage!.string) as! [NSString]
+            
+            self.pasteboard.clearContents()
+            self.pasteboard.writeObjects(textToCopy)
         }
     }
 }
