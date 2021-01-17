@@ -23,6 +23,7 @@ class PreferencesViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        self.title = "Preferences"
         
         NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
             self.flagsChanged(with: $0)
@@ -63,7 +64,7 @@ class PreferencesViewController: NSViewController {
     }
     
     func makeButtonString(event: NSEvent) -> String {
-        var buttonText: String = ""
+        let buttonText: String = ""
         
         return buttonText
     }
