@@ -14,24 +14,22 @@ class PreferencesViewController: NSViewController {
     @IBOutlet var btnHotKeyClipboard: NSButton!
     
     var isSettingHotkey: Bool = false
-    var hotKeyClipboardString: String = ""
-    var hotKeyString: String = ""
+    var showDisplayString:String = ""
+    var clipDisplayString:String = ""
     var activeButton: NSButton!
     var textBtn = "Click to change"
     var textClipboardBtn = "Click to change"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+
         self.title = "Preferences"
         
+        // TODO: Lines 33-66 should eventually go in their own function
         let showHotKeyCode: UInt32 = (HotKeysController.hotKeys[1]?.hotKey?.keyCombo.carbonKeyCode)!
         let showHotKeyModifiers: UInt32 = (HotKeysController.hotKeys[1]?.hotKey?.keyCombo.carbonModifiers)!
         let clipHotKeyCode: UInt32 = (HotKeysController.hotKeys[2]?.hotKey?.keyCombo.carbonKeyCode)!
         let clipHotKeyModifiers: UInt32 = (HotKeysController.hotKeys[2]?.hotKey?.keyCombo.carbonModifiers)!
-        
-        //self.hotKeyString = String(showHotKeyModifiers) + " " + String(showHotKeyCode)
-        //self.hotKeyClipboardString = String(clipHotKeyModifiers) + " " + String(clipHotKeyCode)
         
         let commandSymbol:String = "\u{2318}"
         let optionSymbol:String = "\u{2325}"
@@ -49,23 +47,21 @@ class PreferencesViewController: NSViewController {
         let clipUsesControl:Bool = (clipHotKeyModifiers & 4096) != 0
         let clipUsesShift:Bool = (clipHotKeyModifiers & 512) != 0
         
-        var showDisplay:String = ""
+        if (showUsesCommand) { showDisplayString += commandSymbol + separator }
+        if (showUsesOption) { showDisplayString += optionSymbol + separator }
+        if (showUsesControl) { showDisplayString += controlSymbol + separator }
+        if (showUsesShift) { showDisplayString += shiftSymbol + separator }
         
-        if (showUsesCommand) { showDisplay += commandSymbol + separator }
-        if (showUsesOption) { showDisplay += optionSymbol + separator }
-        if (showUsesControl) { showDisplay += controlSymbol + separator }
-        if (showUsesShift) { showDisplay += shiftSymbol + separator }
+        // TODO: Translate showHotKeyCode into the actual letter
+        showDisplayString += String(showHotKeyCode)
         
-        var clipDisplay:String = ""
+        if (clipUsesCommand) { clipDisplayString += commandSymbol + separator }
+        if (clipUsesOption) { clipDisplayString += optionSymbol + separator }
+        if (clipUsesControl) { clipDisplayString += controlSymbol + separator }
+        if (clipUsesShift) { clipDisplayString += shiftSymbol + separator }
         
-        if (clipUsesCommand) { clipDisplay += commandSymbol + separator }
-        if (clipUsesOption) { clipDisplay += optionSymbol + separator }
-        if (clipUsesControl) { clipDisplay += controlSymbol + separator }
-        if (clipUsesShift) { clipDisplay += shiftSymbol + separator }
-        
-        self.hotKeyString = showDisplay + String(showHotKeyCode)
-        self.hotKeyClipboardString = clipDisplay + String(clipHotKeyCode)
-        
+        // TODO: Translate clipHotKeyCode into the actual letter
+        clipDisplayString += String(clipHotKeyCode)
         
         NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
             self.flagsChanged(with: $0)
@@ -76,13 +72,9 @@ class PreferencesViewController: NSViewController {
             return $0
         }
         
-        // TODO: Eventually I want to bring the HotKey code in using the Swift Package Manager
-        
-        //self.hotKeyString = "Click to change"
-        //self.hotKeyClipboardString = "Click to change"
+        // TODO: Eventually I want to bring the HotKey code in from GitHub repo using the Swift Package Manager
         
         // Pull strings from user defaults to override above
-        
         setupButtonStrings()
     }
 
@@ -102,8 +94,8 @@ class PreferencesViewController: NSViewController {
     
     func setupButtonStrings() {
         
-        btnHotKey.title = hotKeyString
-        btnHotKeyClipboard.title = hotKeyClipboardString
+        btnHotKey.title = showDisplayString
+        btnHotKeyClipboard.title = clipDisplayString
     }
     
     func makeButtonString(event: NSEvent) -> String {
