@@ -25,6 +25,25 @@ class PreferencesViewController: NSViewController {
         // Do view setup here.
         self.title = "Preferences"
         
+        let showHotKeyCode: UInt32 = (HotKeysController.hotKeys[1]?.hotKey?.keyCombo.carbonKeyCode)!
+        let showHotKeyModifiers: UInt32 = (HotKeysController.hotKeys[1]?.hotKey?.keyCombo.carbonModifiers)!
+        let clipHotKeyCode: UInt32 = (HotKeysController.hotKeys[2]?.hotKey?.keyCombo.carbonKeyCode)!
+        let clipHotKeyModifiers: UInt32 = (HotKeysController.hotKeys[2]?.hotKey?.keyCombo.carbonModifiers)!
+        
+        
+        self.hotKeyString = String(showHotKeyModifiers) + " " + String(showHotKeyCode)
+        self.hotKeyClipboardString = String(clipHotKeyModifiers) + " " + String(clipHotKeyCode)
+        
+        let showUsesCmd:Bool = (showHotKeyModifiers & 256) != 0
+        let showUsesOption:Bool = (showHotKeyModifiers & 2048) != 0
+        let showUsesControl:Bool = (showHotKeyModifiers & 4096) != 0
+        let showUsesShift:Bool = (showHotKeyModifiers & 512) != 0
+        
+        let clipUsesCmd:Bool = (clipHotKeyModifiers & 256) != 0
+        let clipUsesOption:Bool = (clipHotKeyModifiers & 2048) != 0
+        let clipUsesControl:Bool = (clipHotKeyModifiers & 4096) != 0
+        let clipUsesShift:Bool = (clipHotKeyModifiers & 512) != 0
+        
         NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
             self.flagsChanged(with: $0)
             return $0
@@ -34,9 +53,10 @@ class PreferencesViewController: NSViewController {
             return $0
         }
         
+        // TODO: Eventually I want to bring the HotKey code in using the Swift Package Manager
         
-        self.hotKeyString = "Click to change"
-        self.hotKeyClipboardString = "Click to change"
+        //self.hotKeyString = "Click to change"
+        //self.hotKeyClipboardString = "Click to change"
         
         // Pull strings from user defaults to override above
         
