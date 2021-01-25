@@ -30,19 +30,42 @@ class PreferencesViewController: NSViewController {
         let clipHotKeyCode: UInt32 = (HotKeysController.hotKeys[2]?.hotKey?.keyCombo.carbonKeyCode)!
         let clipHotKeyModifiers: UInt32 = (HotKeysController.hotKeys[2]?.hotKey?.keyCombo.carbonModifiers)!
         
+        //self.hotKeyString = String(showHotKeyModifiers) + " " + String(showHotKeyCode)
+        //self.hotKeyClipboardString = String(clipHotKeyModifiers) + " " + String(clipHotKeyCode)
         
-        self.hotKeyString = String(showHotKeyModifiers) + " " + String(showHotKeyCode)
-        self.hotKeyClipboardString = String(clipHotKeyModifiers) + " " + String(clipHotKeyCode)
+        let commandSymbol:String = "\u{2318}"
+        let optionSymbol:String = "\u{2325}"
+        let controlSymbol:String = "\u{2303}"
+        let shiftSymbol:String = "\u{21E7}"
+        let separator:String = " + "
         
-        let showUsesCmd:Bool = (showHotKeyModifiers & 256) != 0
+        let showUsesCommand:Bool = (showHotKeyModifiers & 256) != 0
         let showUsesOption:Bool = (showHotKeyModifiers & 2048) != 0
         let showUsesControl:Bool = (showHotKeyModifiers & 4096) != 0
         let showUsesShift:Bool = (showHotKeyModifiers & 512) != 0
         
-        let clipUsesCmd:Bool = (clipHotKeyModifiers & 256) != 0
+        let clipUsesCommand:Bool = (clipHotKeyModifiers & 256) != 0
         let clipUsesOption:Bool = (clipHotKeyModifiers & 2048) != 0
         let clipUsesControl:Bool = (clipHotKeyModifiers & 4096) != 0
         let clipUsesShift:Bool = (clipHotKeyModifiers & 512) != 0
+        
+        var showDisplay:String = ""
+        
+        if (showUsesCommand) { showDisplay += commandSymbol + separator }
+        if (showUsesOption) { showDisplay += optionSymbol + separator }
+        if (showUsesControl) { showDisplay += controlSymbol + separator }
+        if (showUsesShift) { showDisplay += shiftSymbol + separator }
+        
+        var clipDisplay:String = ""
+        
+        if (clipUsesCommand) { clipDisplay += commandSymbol + separator }
+        if (clipUsesOption) { clipDisplay += optionSymbol + separator }
+        if (clipUsesControl) { clipDisplay += controlSymbol + separator }
+        if (clipUsesShift) { clipDisplay += shiftSymbol + separator }
+        
+        self.hotKeyString = showDisplay + String(showHotKeyCode)
+        self.hotKeyClipboardString = clipDisplay + String(clipHotKeyCode)
+        
         
         NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
             self.flagsChanged(with: $0)
