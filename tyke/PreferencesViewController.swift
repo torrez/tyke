@@ -52,16 +52,14 @@ class PreferencesViewController: NSViewController {
         if (showUsesControl) { showDisplayString += controlSymbol + separator }
         if (showUsesShift) { showDisplayString += shiftSymbol + separator }
         
-        // TODO: Translate showHotKeyCode into the actual letter
-        showDisplayString += String(showHotKeyCode)
+        showDisplayString += String(describing: Key(carbonKeyCode: showHotKeyCode)!)
         
         if (clipUsesCommand) { clipDisplayString += commandSymbol + separator }
         if (clipUsesOption) { clipDisplayString += optionSymbol + separator }
         if (clipUsesControl) { clipDisplayString += controlSymbol + separator }
         if (clipUsesShift) { clipDisplayString += shiftSymbol + separator }
         
-        // TODO: Translate clipHotKeyCode into the actual letter
-        clipDisplayString += String(clipHotKeyCode)
+        clipDisplayString += String(describing: Key(carbonKeyCode: clipHotKeyCode)!)
         
         NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
             self.flagsChanged(with: $0)
