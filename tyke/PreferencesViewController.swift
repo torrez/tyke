@@ -23,7 +23,7 @@ class PreferencesViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Preferences"
+        self.title = "Hot Keys"
         
         // TODO: Lines 33-66 should eventually go in their own function
         let showHotKeyCode: UInt32 = (HotKeysController.hotKeys[1]?.hotKey?.keyCombo.carbonKeyCode)!
