@@ -25,41 +25,13 @@ class PreferencesViewController: NSViewController {
 
         self.title = "Hot Keys"
         
-        // TODO: Lines 33-66 should eventually go in their own function
         let showHotKeyCode: UInt32 = (HotKeysController.hotKeys[1]?.hotKey?.keyCombo.carbonKeyCode)!
         let showHotKeyModifiers: UInt32 = (HotKeysController.hotKeys[1]?.hotKey?.keyCombo.carbonModifiers)!
         let clipHotKeyCode: UInt32 = (HotKeysController.hotKeys[2]?.hotKey?.keyCombo.carbonKeyCode)!
         let clipHotKeyModifiers: UInt32 = (HotKeysController.hotKeys[2]?.hotKey?.keyCombo.carbonModifiers)!
         
-        let commandSymbol:String = "\u{2318}"
-        let optionSymbol:String = "\u{2325}"
-        let controlSymbol:String = "\u{2303}"
-        let shiftSymbol:String = "\u{21E7}"
-        let separator:String = " + "
-        
-        let showUsesCommand:Bool = (showHotKeyModifiers & 256) != 0
-        let showUsesOption:Bool = (showHotKeyModifiers & 2048) != 0
-        let showUsesControl:Bool = (showHotKeyModifiers & 4096) != 0
-        let showUsesShift:Bool = (showHotKeyModifiers & 512) != 0
-        
-        let clipUsesCommand:Bool = (clipHotKeyModifiers & 256) != 0
-        let clipUsesOption:Bool = (clipHotKeyModifiers & 2048) != 0
-        let clipUsesControl:Bool = (clipHotKeyModifiers & 4096) != 0
-        let clipUsesShift:Bool = (clipHotKeyModifiers & 512) != 0
-        
-        if (showUsesCommand) { showDisplayString += commandSymbol + separator }
-        if (showUsesOption) { showDisplayString += optionSymbol + separator }
-        if (showUsesControl) { showDisplayString += controlSymbol + separator }
-        if (showUsesShift) { showDisplayString += shiftSymbol + separator }
-        
-        showDisplayString += String(describing: Key(carbonKeyCode: showHotKeyCode)!)
-        
-        if (clipUsesCommand) { clipDisplayString += commandSymbol + separator }
-        if (clipUsesOption) { clipDisplayString += optionSymbol + separator }
-        if (clipUsesControl) { clipDisplayString += controlSymbol + separator }
-        if (clipUsesShift) { clipDisplayString += shiftSymbol + separator }
-        
-        clipDisplayString += String(describing: Key(carbonKeyCode: clipHotKeyCode)!)
+        showDisplayString = createHotKeyDisplayString(key: showHotKeyCode, modifiers: showHotKeyModifiers)
+        clipDisplayString = createHotKeyDisplayString(key: clipHotKeyCode, modifiers: clipHotKeyModifiers)
         
         NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
             self.flagsChanged(with: $0)
@@ -158,6 +130,31 @@ class PreferencesViewController: NSViewController {
         //Store hot key in preferences
         
         isSettingHotkey = false
+    }
+    
+    func createHotKeyDisplayString(key: UInt32, modifiers: UInt32) -> String {
+        
+        var displayString: String = ""
+        
+        let commandSymbol:String = "\u{2318}"
+        let optionSymbol:String = "\u{2325}"
+        let controlSymbol:String = "\u{2303}"
+        let shiftSymbol:String = "\u{21E7}"
+        let separator:String = " + "
+        
+        let usesCommand:Bool = (modifiers & 256) != 0
+        let usesOption:Bool = (modifiers & 2048) != 0
+        let usesControl:Bool = (modifiers & 4096) != 0
+        let usesShift:Bool = (modifiers & 512) != 0
+        
+        if (usesCommand) { displayString += commandSymbol + separator }
+        if (usesOption) { displayString += optionSymbol + separator }
+        if (usesControl) { displayString += controlSymbol + separator }
+        if (usesShift) { displayString += shiftSymbol + separator }
+        
+        displayString += String(describing: Key(carbonKeyCode: key)!)
+        
+        return displayString
     }
     
 }
