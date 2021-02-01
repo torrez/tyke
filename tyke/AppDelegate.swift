@@ -70,9 +70,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             else { smart_quote_menu_item.state = NSControl.StateValue.off }
             
             contextMenu.addItem(smart_quote_menu_item)
-            contextMenu.addItem(NSMenuItem(title: "Preferences", action: #selector(self.showPreferences(sender:)), keyEquivalent: "p"))
+            contextMenu.addItem(NSMenuItem(title: "Hot Keys", action: #selector(self.showPreferences(sender:)), keyEquivalent: ""))
             contextMenu.addItem(NSMenuItem.separator())
-            contextMenu.addItem(NSMenuItem(title: "Quit", action: #selector(self.quit(sender:)), keyEquivalent: "q"))
+            contextMenu.addItem(NSMenuItem(title: "Quit", action: #selector(self.quit(sender:)), keyEquivalent: ""))
             
             statusItem.menu = contextMenu
             statusItem.popUpMenu(contextMenu)

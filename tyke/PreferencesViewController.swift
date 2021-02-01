@@ -14,16 +14,24 @@ class PreferencesViewController: NSViewController {
     @IBOutlet var btnHotKeyClipboard: NSButton!
     
     var isSettingHotkey: Bool = false
-    var hotKeyClipboardString: String = ""
-    var hotKeyString: String = ""
+    var showDisplayString:String = ""
+    var clipDisplayString:String = ""
     var activeButton: NSButton!
     var textBtn = "Click to change"
     var textClipboardBtn = "Click to change"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
-        self.title = "Preferences"
+
+        self.title = "Hot Keys"
+        
+        let showHotKeyCode: UInt32 = (HotKeysController.hotKeys[1]?.hotKey?.keyCombo.carbonKeyCode)!
+        let showHotKeyModifiers: UInt32 = (HotKeysController.hotKeys[1]?.hotKey?.keyCombo.carbonModifiers)!
+        let clipHotKeyCode: UInt32 = (HotKeysController.hotKeys[2]?.hotKey?.keyCombo.carbonKeyCode)!
+        let clipHotKeyModifiers: UInt32 = (HotKeysController.hotKeys[2]?.hotKey?.keyCombo.carbonModifiers)!
+        
+        showDisplayString = createHotKeyDisplayString(key: showHotKeyCode, modifiers: showHotKeyModifiers)
+        clipDisplayString = createHotKeyDisplayString(key: clipHotKeyCode, modifiers: clipHotKeyModifiers)
         
         NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
             self.flagsChanged(with: $0)
@@ -34,12 +42,9 @@ class PreferencesViewController: NSViewController {
             return $0
         }
         
-        
-        self.hotKeyString = "Click to change"
-        self.hotKeyClipboardString = "Click to change"
+        // TODO: Eventually I want to bring the HotKey code in from GitHub repo using the Swift Package Manager
         
         // Pull strings from user defaults to override above
-        
         setupButtonStrings()
     }
 
@@ -59,8 +64,8 @@ class PreferencesViewController: NSViewController {
     
     func setupButtonStrings() {
         
-        btnHotKey.title = hotKeyString
-        btnHotKeyClipboard.title = hotKeyClipboardString
+        btnHotKey.title = showDisplayString
+        btnHotKeyClipboard.title = clipDisplayString
     }
     
     func makeButtonString(event: NSEvent) -> String {
@@ -125,6 +130,31 @@ class PreferencesViewController: NSViewController {
         //Store hot key in preferences
         
         isSettingHotkey = false
+    }
+    
+    func createHotKeyDisplayString(key: UInt32, modifiers: UInt32) -> String {
+        
+        var displayString: String = ""
+        
+        let commandSymbol:String = "\u{2318}"
+        let optionSymbol:String = "\u{2325}"
+        let controlSymbol:String = "\u{2303}"
+        let shiftSymbol:String = "\u{21E7}"
+        let separator:String = " + "
+        
+        let usesCommand:Bool = (modifiers & 256) != 0
+        let usesOption:Bool = (modifiers & 2048) != 0
+        let usesControl:Bool = (modifiers & 4096) != 0
+        let usesShift:Bool = (modifiers & 512) != 0
+        
+        if (usesCommand) { displayString += commandSymbol + separator }
+        if (usesOption) { displayString += optionSymbol + separator }
+        if (usesControl) { displayString += controlSymbol + separator }
+        if (usesShift) { displayString += shiftSymbol + separator }
+        
+        displayString += String(describing: Key(carbonKeyCode: key)!)
+        
+        return displayString
     }
     
 }
