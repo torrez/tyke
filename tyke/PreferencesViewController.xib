@@ -27,7 +27,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="hotKeyBtnClick:" target="-2" id="z6V-du-E5m"/>
+                        <action selector="btnShowHotKey:" target="-2" id="z6V-du-E5m"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jpg-n4-wxg">
@@ -38,7 +38,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="hotKeyBtnClipClick:" target="-2" id="q1t-8m-nuP"/>
+                        <action selector="btnClipHotKey:" target="-2" id="q1t-8m-nuP"/>
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQc-J8-aOR">

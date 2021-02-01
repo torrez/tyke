@@ -49,12 +49,12 @@ class PreferencesViewController: NSViewController {
     }
 
     
-    @IBAction func hotKeyBtnClipClick(_ sender: NSButton) {
+    @IBAction func btnClipHotKey(_ sender: NSButton) {
         self.activeButton = sender
         self.isSettingHotkey = true
             
     }
-    @IBAction func hotKeyBtnClick(_ sender: NSButton) {
+    @IBAction func btnShowHotKey(_ sender: NSButton) {
         self.activeButton = sender
         self.isSettingHotkey = true
     }
