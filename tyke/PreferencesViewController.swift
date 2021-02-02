@@ -12,7 +12,6 @@ class PreferencesViewController: NSViewController {
     
     @IBOutlet var btnShowHotKey:NSButton!
     @IBOutlet var btnClipHotKey:NSButton!
-
     
     let commandSymbol:String = "\u{2318}" // ⌘
     let optionSymbol:String = "\u{2325}"  // ⌥
@@ -20,12 +19,12 @@ class PreferencesViewController: NSViewController {
     let shiftSymbol:String = "\u{21E7}"   // ⇧
     let separator:String = " + "
     
-    var isSettingHotkey: Bool = false
+    var isSettingHotKey: Bool = false
     var showDisplayString:String = ""
     var clipDisplayString:String = ""
     var activeButton: NSButton!
-    var textBtn = "Click to change"
-    var textClipboardBtn = "Click to change"
+    //var textBtn = "Click to change"
+    //var textClipboardBtn = "Click to change"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,16 +57,17 @@ class PreferencesViewController: NSViewController {
     
     @IBAction func btnClipHotKey(_ sender: NSButton) {
         
-        btnClipHotKey.title = ""
         self.activeButton = sender
-        self.isSettingHotkey = true
-            
+        self.activeButton.title = ""
+        
+        self.isSettingHotKey = true
     }
+    
     @IBAction func btnShowHotKey(_ sender: NSButton) {
         
-        btnShowHotKey.title = ""
         self.activeButton = sender
-        self.isSettingHotkey = true
+        self.activeButton.title = ""
+        self.isSettingHotKey = true
     }
     
     //override func flagsChanged(with event: NSEvent) {
@@ -87,17 +87,15 @@ class PreferencesViewController: NSViewController {
     
     override func keyDown(with event: NSEvent) {
         
-        if (!self.isSettingHotkey) { return }
+        if (!self.isSettingHotKey) { return }
         
         var newButtonString:String = ""
         
         if (event.keyCode == 53) {          // 53 = 0x35 = kVK_Escape
-            self.isSettingHotkey = false
+            self.isSettingHotKey = false
             self.setupButtonStrings()
             return
         }
-        
-        print("Key: " + event.charactersIgnoringModifiers!)
         
         let x = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
         if (!x.contains(.command)) && (!x.contains(.option)) && (!x.contains(.control)) && (!x.contains(.shift)) {
@@ -127,7 +125,7 @@ class PreferencesViewController: NSViewController {
         
         //Store hot key in preferences
         */
-        isSettingHotkey = false
+        isSettingHotKey = false
     }
     
     func createHotKeyDisplayString(key: UInt32, modifiers: UInt32) -> String {
