@@ -13,6 +13,8 @@ class PreferencesViewController: NSViewController {
     @IBOutlet var btnShowHotKey:NSButton!
     @IBOutlet var btnClipHotKey:NSButton!
     
+    let appDelegate = NSApp.delegate as! AppDelegate
+    
     let commandSymbol:String = "\u{2318}" // ⌘
     let optionSymbol:String = "\u{2325}"  // ⌥
     let controlSymbol:String = "\u{2303}" // ⌃
@@ -23,8 +25,6 @@ class PreferencesViewController: NSViewController {
     var showDisplayString:String = ""
     var clipDisplayString:String = ""
     var activeButton: NSButton!
-    //var textBtn = "Click to change"
-    //var textClipboardBtn = "Click to change"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,8 +110,18 @@ class PreferencesViewController: NSViewController {
         
         if let character:String = event.charactersIgnoringModifiers { newButtonString += character }
         
-        if (self.activeButton == btnClipHotKey) { btnClipHotKey.title = newButtonString }
-        else if(self.activeButton == btnShowHotKey) { btnShowHotKey.title = newButtonString }
+        if (self.activeButton == btnShowHotKey) {
+            btnShowHotKey.title = newButtonString
+            if let newHotKey:Key = Key(string:event.charactersIgnoringModifiers!) {
+                appDelegate.showHotKey = HotKey(key: newHotKey, modifiers: event.modifierFlags)
+            }
+        }
+        else if (self.activeButton == btnClipHotKey) {
+            btnClipHotKey.title = newButtonString
+            if let newHotKey:Key = Key(string:event.charactersIgnoringModifiers!) {
+                appDelegate.clipboardHotKey = HotKey(key: newHotKey, modifiers: event.modifierFlags)
+            }
+        }
         
         /*
         //Set up this hot key!
