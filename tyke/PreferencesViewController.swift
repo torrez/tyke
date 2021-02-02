@@ -10,8 +10,15 @@ import Cocoa
 
 class PreferencesViewController: NSViewController {
     
-    @IBOutlet var btnHotKey: NSButton!
-    @IBOutlet var btnHotKeyClipboard: NSButton!
+    @IBOutlet var btnShowHotKey:NSButton!
+    @IBOutlet var btnClipHotKey:NSButton!
+
+    
+    let commandSymbol:String = "\u{2318}" // ⌘
+    let optionSymbol:String = "\u{2325}"  // ⌥
+    let controlSymbol:String = "\u{2303}" // ⌃
+    let shiftSymbol:String = "\u{21E7}"   // ⇧
+    let separator:String = " + "
     
     var isSettingHotkey: Bool = false
     var showDisplayString:String = ""
@@ -50,11 +57,13 @@ class PreferencesViewController: NSViewController {
 
     
     @IBAction func btnClipHotKey(_ sender: NSButton) {
+        
         self.activeButton = sender
         self.isSettingHotkey = true
             
     }
     @IBAction func btnShowHotKey(_ sender: NSButton) {
+        
         self.activeButton = sender
         self.isSettingHotkey = true
     }
@@ -64,60 +73,47 @@ class PreferencesViewController: NSViewController {
     
     func setupButtonStrings() {
         
-        btnHotKey.title = showDisplayString
-        btnHotKeyClipboard.title = clipDisplayString
+        btnShowHotKey.title = showDisplayString
+        btnClipHotKey.title = clipDisplayString
     }
     
     func makeButtonString(event: NSEvent) -> String {
-        let buttonText: String = ""
         
+        let buttonText: String = ""
         return buttonText
     }
+    
     override func keyDown(with event: NSEvent) {
         
-        if (!self.isSettingHotkey) {
-            return
-        }
+        if (!self.isSettingHotkey) { return }
         
         var newButtonString:String = ""
         
-        if (event.keyCode == 53) {
+        if (event.keyCode == 53) {          // 53 = 0x35 = kVK_Escape
             self.isSettingHotkey = false
             self.setupButtonStrings()
             return
         }
+        
         print("Key: " + event.charactersIgnoringModifiers!)
         
         let x = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
-        
-        
-        if (!x.contains(.control)) && (!x.contains(.option)) && (!x.contains(.command)){
+        if (!x.contains(.command)) && (!x.contains(.option)) && (!x.contains(.control)) && (!x.contains(.shift)) {
             NSSound(named: "Funk")?.play()
             return
         }
-        if x.contains(.control){
-            newButtonString += "⌃"
-        }
-        if x.contains(.option){
-            newButtonString += "⌥"
-        }
-        if x.contains(.command){
-            newButtonString += "⌘"
-        }
-        if x.contains(.shift){
-            newButtonString += "⇧"
-        }
         
-        if let character:String = event.charactersIgnoringModifiers {
-            newButtonString += character
-        }
+        if x.contains(.command) { newButtonString += commandSymbol + separator }
+        if x.contains(.option) { newButtonString += optionSymbol + separator }
+        if x.contains(.control) { newButtonString += controlSymbol + separator }
+        if x.contains(.shift) { newButtonString += shiftSymbol + separator }
         
-        if (self.activeButton == btnHotKeyClipboard){
-            btnHotKeyClipboard.title = newButtonString
-        }else if(self.activeButton == btnHotKey){
-            btnHotKey.title = newButtonString
-        }
+        if let character:String = event.charactersIgnoringModifiers { newButtonString += character }
         
+        if (self.activeButton == btnClipHotKey) { btnClipHotKey.title = newButtonString }
+        else if(self.activeButton == btnShowHotKey) { btnShowHotKey.title = newButtonString }
+        
+        /*
         //Set up this hot key!
         if let newHotKey:Key = Key(string:event.charactersIgnoringModifiers!){
             
@@ -128,20 +124,20 @@ class PreferencesViewController: NSViewController {
         }
         
         //Store hot key in preferences
-        
+        */
         isSettingHotkey = false
     }
     
     func createHotKeyDisplayString(key: UInt32, modifiers: UInt32) -> String {
         
         var displayString: String = ""
-        
+        /*
         let commandSymbol:String = "\u{2318}"
         let optionSymbol:String = "\u{2325}"
         let controlSymbol:String = "\u{2303}"
         let shiftSymbol:String = "\u{21E7}"
         let separator:String = " + "
-        
+        */
         let usesCommand:Bool = (modifiers & 256) != 0
         let usesOption:Bool = (modifiers & 2048) != 0
         let usesControl:Bool = (modifiers & 4096) != 0

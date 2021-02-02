@@ -8,8 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesViewController" customModule="tyke" customModuleProvider="target">
             <connections>
-                <outlet property="btnHotKey" destination="hDB-fc-GoE" id="dsH-pN-4kE"/>
-                <outlet property="btnHotKeyClipboard" destination="Jpg-n4-wxg" id="5Cc-yU-m4L"/>
+                <outlet property="btnClipHotKey" destination="Jpg-n4-wxg" id="0Pq-LP-Zvl"/>
+                <outlet property="btnShowHotKey" destination="hDB-fc-GoE" id="wK0-eI-BUc"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hDB-fc-GoE">
-                    <rect key="frame" x="183" y="146" width="136" height="32"/>
+                    <rect key="frame" x="180" y="146" width="157" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SsL-A3-MMI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -31,7 +31,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jpg-n4-wxg">
-                    <rect key="frame" x="183" y="113" width="136" height="32"/>
+                    <rect key="frame" x="180" y="113" width="157" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="h7N-RZ-yx5">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -42,7 +42,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQc-J8-aOR">
-                    <rect key="frame" x="27" y="122" width="145" height="17"/>
+                    <rect key="frame" x="24" y="122" width="145" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Copy Text To Clipboard" id="bBc-Wj-JJa">
                         <font key="font" metaFont="system"/>
@@ -78,7 +78,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vm4-u0-3Zk">
-                    <rect key="frame" x="102" y="155" width="70" height="17"/>
+                    <rect key="frame" x="99" y="155" width="70" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Show Tyke" id="OhV-TI-sDo">
                         <font key="font" metaFont="system"/>
