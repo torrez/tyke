@@ -151,9 +151,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.showHotKey?.keyDownHandler = { self.togglePopover(nil) }
         
         self.clipboardHotKey?.keyDownHandler = {
-            
             let textToCopy: [NSString] = NSArray.init(object: self.evc.editor.textStorage!.string) as! [NSString]
-            
             self.pasteboard.clearContents()
             self.pasteboard.writeObjects(textToCopy)
         }
