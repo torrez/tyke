@@ -58,12 +58,14 @@ class PreferencesViewController: NSViewController {
     
     @IBAction func btnClipHotKey(_ sender: NSButton) {
         
+        btnClipHotKey.title = ""
         self.activeButton = sender
         self.isSettingHotkey = true
             
     }
     @IBAction func btnShowHotKey(_ sender: NSButton) {
         
+        btnShowHotKey.title = ""
         self.activeButton = sender
         self.isSettingHotkey = true
     }
@@ -131,13 +133,7 @@ class PreferencesViewController: NSViewController {
     func createHotKeyDisplayString(key: UInt32, modifiers: UInt32) -> String {
         
         var displayString: String = ""
-        /*
-        let commandSymbol:String = "\u{2318}"
-        let optionSymbol:String = "\u{2325}"
-        let controlSymbol:String = "\u{2303}"
-        let shiftSymbol:String = "\u{21E7}"
-        let separator:String = " + "
-        */
+        
         let usesCommand:Bool = (modifiers & 256) != 0
         let usesOption:Bool = (modifiers & 2048) != 0
         let usesControl:Bool = (modifiers & 4096) != 0
