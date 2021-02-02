@@ -114,14 +114,18 @@ class PreferencesViewController: NSViewController {
             btnShowHotKey.title = newButtonString
             if let newHotKey:Key = Key(string:event.charactersIgnoringModifiers!) {
                 self.appDelegate.showHotKey = HotKey(key: newHotKey, modifiers: event.modifierFlags)
-                self.appDelegate.showHotKey?.keyDownHandler = { self.appDelegate.togglePopover(nil) } // Can I somehow reference the code in AppDelegate instead of have to repeat here?
+                
+                // Can I somehow reference the code in AppDelegate instead of have to repeat it below?
+                self.appDelegate.showHotKey?.keyDownHandler = { self.appDelegate.togglePopover(nil) }
             }
         }
         else if (self.activeButton == btnClipHotKey) {
             btnClipHotKey.title = newButtonString
             if let newHotKey:Key = Key(string:event.charactersIgnoringModifiers!) {
                 self.appDelegate.clipboardHotKey = HotKey(key: newHotKey, modifiers: event.modifierFlags)
-                self.appDelegate.clipboardHotKey?.keyDownHandler = { // Can I somehow reference the code in AppDelegate instead of have to repeat here?
+                
+                // Can I somehow reference the code in AppDelegate instead of have to repeat it below?
+                self.appDelegate.clipboardHotKey?.keyDownHandler = {
                     let textToCopy: [NSString] = NSArray.init(object: self.appDelegate.evc.editor.textStorage!.string) as! [NSString]
                     self.appDelegate.pasteboard.clearContents()
                     self.appDelegate.pasteboard.writeObjects(textToCopy)
