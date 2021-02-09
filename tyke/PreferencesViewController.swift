@@ -10,15 +10,21 @@ import Cocoa
 
 class PreferencesViewController: NSViewController {
     
-    @IBOutlet var btnHotKey: NSButton!
-    @IBOutlet var btnHotKeyClipboard: NSButton!
+    @IBOutlet var btnShowHotKey:NSButton!
+    @IBOutlet var btnClipHotKey:NSButton!
     
-    var isSettingHotkey: Bool = false
+    let appDelegate = NSApp.delegate as! AppDelegate
+    
+    let commandSymbol:String = "\u{2318}" // ⌘
+    let optionSymbol:String = "\u{2325}"  // ⌥
+    let controlSymbol:String = "\u{2303}" // ⌃
+    let shiftSymbol:String = "\u{21E7}"   // ⇧
+    let separator:String = " + "
+    
+    var isSettingHotKey: Bool = false
     var showDisplayString:String = ""
     var clipDisplayString:String = ""
     var activeButton: NSButton!
-    var textBtn = "Click to change"
-    var textClipboardBtn = "Click to change"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,14 +55,19 @@ class PreferencesViewController: NSViewController {
     }
 
     
-    @IBAction func hotKeyBtnClipClick(_ sender: NSButton) {
+    @IBAction func btnClipHotKey(_ sender: NSButton) {
+        
         self.activeButton = sender
-        self.isSettingHotkey = true
-            
+        self.activeButton.title = ""
+        
+        self.isSettingHotKey = true
     }
-    @IBAction func hotKeyBtnClick(_ sender: NSButton) {
+    
+    @IBAction func btnShowHotKey(_ sender: NSButton) {
+        
         self.activeButton = sender
-        self.isSettingHotkey = true
+        self.activeButton.title = ""
+        self.isSettingHotKey = true
     }
     
     //override func flagsChanged(with event: NSEvent) {
@@ -64,60 +75,65 @@ class PreferencesViewController: NSViewController {
     
     func setupButtonStrings() {
         
-        btnHotKey.title = showDisplayString
-        btnHotKeyClipboard.title = clipDisplayString
+        btnShowHotKey.title = showDisplayString
+        btnClipHotKey.title = clipDisplayString
     }
     
     func makeButtonString(event: NSEvent) -> String {
-        let buttonText: String = ""
         
+        let buttonText: String = ""
         return buttonText
     }
+    
     override func keyDown(with event: NSEvent) {
         
-        if (!self.isSettingHotkey) {
-            return
-        }
+        if (!self.isSettingHotKey) { return }
         
         var newButtonString:String = ""
         
-        if (event.keyCode == 53) {
-            self.isSettingHotkey = false
+        if (event.keyCode == 53) {          // 53 = 0x35 = kVK_Escape
+            self.isSettingHotKey = false
             self.setupButtonStrings()
             return
         }
-        print("Key: " + event.charactersIgnoringModifiers!)
         
         let x = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
-        
-        
-        if (!x.contains(.control)) && (!x.contains(.option)) && (!x.contains(.command)){
+        if (!x.contains(.command)) && (!x.contains(.option)) && (!x.contains(.control)) && (!x.contains(.shift)) {
             NSSound(named: "Funk")?.play()
             return
         }
-        if x.contains(.control){
-            newButtonString += "⌃"
+        
+        if x.contains(.command) { newButtonString += commandSymbol + separator }
+        if x.contains(.option) { newButtonString += optionSymbol + separator }
+        if x.contains(.control) { newButtonString += controlSymbol + separator }
+        if x.contains(.shift) { newButtonString += shiftSymbol + separator }
+        
+        if let character:String = event.charactersIgnoringModifiers { newButtonString += character }
+        
+        if (self.activeButton == btnShowHotKey) {
+            btnShowHotKey.title = newButtonString
+            if let newHotKey:Key = Key(string:event.charactersIgnoringModifiers!) {
+                self.appDelegate.showHotKey = HotKey(key: newHotKey, modifiers: event.modifierFlags)
+                
+                // Can I somehow reference the code in AppDelegate instead of have to repeat it below?
+                self.appDelegate.showHotKey?.keyDownHandler = { self.appDelegate.togglePopover(nil) }
+            }
         }
-        if x.contains(.option){
-            newButtonString += "⌥"
-        }
-        if x.contains(.command){
-            newButtonString += "⌘"
-        }
-        if x.contains(.shift){
-            newButtonString += "⇧"
+        else if (self.activeButton == btnClipHotKey) {
+            btnClipHotKey.title = newButtonString
+            if let newHotKey:Key = Key(string:event.charactersIgnoringModifiers!) {
+                self.appDelegate.clipboardHotKey = HotKey(key: newHotKey, modifiers: event.modifierFlags)
+                
+                // Can I somehow reference the code in AppDelegate instead of have to repeat it below?
+                self.appDelegate.clipboardHotKey?.keyDownHandler = {
+                    let textToCopy: [NSString] = NSArray.init(object: self.appDelegate.evc.editor.textStorage!.string) as! [NSString]
+                    self.appDelegate.pasteboard.clearContents()
+                    self.appDelegate.pasteboard.writeObjects(textToCopy)
+                }
+            }
         }
         
-        if let character:String = event.charactersIgnoringModifiers {
-            newButtonString += character
-        }
-        
-        if (self.activeButton == btnHotKeyClipboard){
-            btnHotKeyClipboard.title = newButtonString
-        }else if(self.activeButton == btnHotKey){
-            btnHotKey.title = newButtonString
-        }
-        
+        /*
         //Set up this hot key!
         if let newHotKey:Key = Key(string:event.charactersIgnoringModifiers!){
             
@@ -128,19 +144,13 @@ class PreferencesViewController: NSViewController {
         }
         
         //Store hot key in preferences
-        
-        isSettingHotkey = false
+        */
+        isSettingHotKey = false
     }
     
     func createHotKeyDisplayString(key: UInt32, modifiers: UInt32) -> String {
         
         var displayString: String = ""
-        
-        let commandSymbol:String = "\u{2318}"
-        let optionSymbol:String = "\u{2325}"
-        let controlSymbol:String = "\u{2303}"
-        let shiftSymbol:String = "\u{21E7}"
-        let separator:String = " + "
         
         let usesCommand:Bool = (modifiers & 256) != 0
         let usesOption:Bool = (modifiers & 2048) != 0
