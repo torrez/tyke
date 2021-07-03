@@ -137,10 +137,9 @@
 			};
 			buildConfigurationList = 652006041F463E1700D9FD2F /* Build configuration list for PBXProject "tyke" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
