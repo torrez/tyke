@@ -13,13 +13,14 @@
 		6520061D1F46537200D9FD2F /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6520061B1F46537200D9FD2F /* EditorViewController.swift */; };
 		6520061E1F46537200D9FD2F /* EditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6520061C1F46537200D9FD2F /* EditorViewController.xib */; };
 		6540A37A1F74445500797667 /* NoBloopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6540A3791F74445500797667 /* NoBloopView.swift */; };
-		65D87A031F7363890069B2F1 /* NSEventModifierFlags+HotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D879FE1F7363880069B2F1 /* NSEventModifierFlags+HotKey.swift */; };
-		65D87A041F7363890069B2F1 /* HotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D879FF1F7363890069B2F1 /* HotKey.swift */; };
-		65D87A051F7363890069B2F1 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D87A001F7363890069B2F1 /* Key.swift */; };
-		65D87A061F7363890069B2F1 /* HotKeysController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D87A011F7363890069B2F1 /* HotKeysController.swift */; };
-		65D87A071F7363890069B2F1 /* KeyCombo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D87A021F7363890069B2F1 /* KeyCombo.swift */; };
 		65D87A0A1F7380090069B2F1 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D87A081F7380090069B2F1 /* PreferencesViewController.swift */; };
 		65D87A0B1F7380090069B2F1 /* PreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65D87A091F7380090069B2F1 /* PreferencesViewController.xib */; };
+		6F8212F62690760700C3272C /* KeyCombo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8212F02690760700C3272C /* KeyCombo.swift */; };
+		6F8212F72690760700C3272C /* KeyCombo+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8212F12690760700C3272C /* KeyCombo+System.swift */; };
+		6F8212F82690760700C3272C /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8212F22690760700C3272C /* Key.swift */; };
+		6F8212F92690760700C3272C /* HotKeysController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8212F32690760700C3272C /* HotKeysController.swift */; };
+		6F8212FA2690760700C3272C /* NSEventModifierFlags+HotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8212F42690760700C3272C /* NSEventModifierFlags+HotKey.swift */; };
+		6F8212FB2690760700C3272C /* HotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8212F52690760700C3272C /* HotKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,13 +32,14 @@
 		6520061B1F46537200D9FD2F /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		6520061C1F46537200D9FD2F /* EditorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditorViewController.xib; sourceTree = "<group>"; };
 		6540A3791F74445500797667 /* NoBloopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoBloopView.swift; sourceTree = "<group>"; };
-		65D879FE1F7363880069B2F1 /* NSEventModifierFlags+HotKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSEventModifierFlags+HotKey.swift"; sourceTree = "<group>"; };
-		65D879FF1F7363890069B2F1 /* HotKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKey.swift; sourceTree = "<group>"; };
-		65D87A001F7363890069B2F1 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
-		65D87A011F7363890069B2F1 /* HotKeysController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeysController.swift; sourceTree = "<group>"; };
-		65D87A021F7363890069B2F1 /* KeyCombo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCombo.swift; sourceTree = "<group>"; };
 		65D87A081F7380090069B2F1 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		65D87A091F7380090069B2F1 /* PreferencesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesViewController.xib; sourceTree = "<group>"; };
+		6F8212F02690760700C3272C /* KeyCombo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCombo.swift; sourceTree = "<group>"; };
+		6F8212F12690760700C3272C /* KeyCombo+System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyCombo+System.swift"; sourceTree = "<group>"; };
+		6F8212F22690760700C3272C /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		6F8212F32690760700C3272C /* HotKeysController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotKeysController.swift; sourceTree = "<group>"; };
+		6F8212F42690760700C3272C /* NSEventModifierFlags+HotKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSEventModifierFlags+HotKey.swift"; sourceTree = "<group>"; };
+		6F8212F52690760700C3272C /* HotKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				6520060B1F463E1700D9FD2F /* tyke */,
+				6F8212C02690710A00C3272C /* HotKey */,
 				6520060A1F463E1700D9FD2F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,13 +82,21 @@
 				652006101F463E1700D9FD2F /* Assets.xcassets */,
 				652006121F463E1700D9FD2F /* Main.storyboard */,
 				652006151F463E1700D9FD2F /* Info.plist */,
-				65D879FF1F7363890069B2F1 /* HotKey.swift */,
-				65D87A011F7363890069B2F1 /* HotKeysController.swift */,
-				65D87A001F7363890069B2F1 /* Key.swift */,
-				65D87A021F7363890069B2F1 /* KeyCombo.swift */,
-				65D879FE1F7363880069B2F1 /* NSEventModifierFlags+HotKey.swift */,
 			);
 			path = tyke;
+			sourceTree = "<group>";
+		};
+		6F8212C02690710A00C3272C /* HotKey */ = {
+			isa = PBXGroup;
+			children = (
+				6F8212F52690760700C3272C /* HotKey.swift */,
+				6F8212F32690760700C3272C /* HotKeysController.swift */,
+				6F8212F22690760700C3272C /* Key.swift */,
+				6F8212F02690760700C3272C /* KeyCombo.swift */,
+				6F8212F12690760700C3272C /* KeyCombo+System.swift */,
+				6F8212F42690760700C3272C /* NSEventModifierFlags+HotKey.swift */,
+			);
+			path = HotKey;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,10 +137,9 @@
 			};
 			buildConfigurationList = 652006041F463E1700D9FD2F /* Build configuration list for PBXProject "tyke" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -162,14 +172,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F8212F82690760700C3272C /* Key.swift in Sources */,
 				6520060D1F463E1700D9FD2F /* AppDelegate.swift in Sources */,
-				65D87A051F7363890069B2F1 /* Key.swift in Sources */,
-				65D87A071F7363890069B2F1 /* KeyCombo.swift in Sources */,
+				6F8212FA2690760700C3272C /* NSEventModifierFlags+HotKey.swift in Sources */,
+				6F8212FB2690760700C3272C /* HotKey.swift in Sources */,
+				6F8212F72690760700C3272C /* KeyCombo+System.swift in Sources */,
+				6F8212F62690760700C3272C /* KeyCombo.swift in Sources */,
 				65D87A0A1F7380090069B2F1 /* PreferencesViewController.swift in Sources */,
+				6F8212F92690760700C3272C /* HotKeysController.swift in Sources */,
 				6520061D1F46537200D9FD2F /* EditorViewController.swift in Sources */,
-				65D87A061F7363890069B2F1 /* HotKeysController.swift in Sources */,
-				65D87A031F7363890069B2F1 /* NSEventModifierFlags+HotKey.swift in Sources */,
-				65D87A041F7363890069B2F1 /* HotKey.swift in Sources */,
 				6540A37A1F74445500797667 /* NoBloopView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

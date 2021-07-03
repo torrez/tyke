@@ -1,14 +1,6 @@
-//
-//  CarbonKeyCombo.swift
-//  HotKey
-//
-//  Created by Sam Soffes on 7/21/17.
-//  Copyright © 2017 Sam Soffes. All rights reserved.
-//
-
 import AppKit
 
-public struct KeyCombo {
+public struct KeyCombo: Equatable {
 
 	// MARK: - Properties
 
@@ -21,14 +13,13 @@ public struct KeyCombo {
 		}
 
 		set {
-			guard let key = newValue else { return }
-			carbonKeyCode = key.carbonKeyCode
+			carbonKeyCode = newValue?.carbonKeyCode ?? 0
 		}
 	}
 
-    public var modifiers: NSEvent.ModifierFlags {
+	public var modifiers: NSEvent.ModifierFlags {
 		get {
-            return NSEvent.ModifierFlags(carbonFlags: carbonModifiers)
+			return NSEvent.ModifierFlags(carbonFlags: carbonModifiers)
 		}
 
 		set {
@@ -37,22 +28,20 @@ public struct KeyCombo {
 	}
 
 	public var isValid: Bool {
-		return carbonKeyCode >= 0 && carbonModifiers > 0
+		return carbonKeyCode >= 0
 	}
-
 
 	// MARK: - Initializers
 
-	public init(carbonKeyCode: UInt32, carbonModifiers: UInt32) {
+	public init(carbonKeyCode: UInt32, carbonModifiers: UInt32 = 0) {
 		self.carbonKeyCode = carbonKeyCode
 		self.carbonModifiers = carbonModifiers
 	}
 
-    public init(key: Key, modifiers: NSEvent.ModifierFlags) {
+	public init(key: Key, modifiers: NSEvent.ModifierFlags = []) {
 		self.carbonKeyCode = key.carbonKeyCode
 		self.carbonModifiers = modifiers.carbonFlags
 	}
-
 
 	// MARK: - Converting Keys
 
@@ -60,7 +49,6 @@ public struct KeyCombo {
 		return nil
 	}
 }
-
 
 extension KeyCombo {
 	public var dictionary: [String: Any] {
@@ -81,9 +69,14 @@ extension KeyCombo {
 	}
 }
 
+extension KeyCombo: CustomStringConvertible {
+    public var description: String {
+        var output = modifiers.description
 
-extension KeyCombo: Equatable {
-	public static func == (lhs: KeyCombo, rhs: KeyCombo) -> Bool {
-		return lhs.carbonKeyCode == rhs.carbonKeyCode && lhs.carbonModifiers == rhs.carbonModifiers
-	}
+        if let keyDescription = key?.description {
+            output += keyDescription
+        }
+
+        return output
+    }
 }
