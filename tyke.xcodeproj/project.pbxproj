@@ -55,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				6520060B1F463E1700D9FD2F /* tyke */,
+				6F8212C02690710A00C3272C /* HotKey */,
 				6520060A1F463E1700D9FD2F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,13 +80,20 @@
 				652006101F463E1700D9FD2F /* Assets.xcassets */,
 				652006121F463E1700D9FD2F /* Main.storyboard */,
 				652006151F463E1700D9FD2F /* Info.plist */,
+			);
+			path = tyke;
+			sourceTree = "<group>";
+		};
+		6F8212C02690710A00C3272C /* HotKey */ = {
+			isa = PBXGroup;
+			children = (
 				65D879FF1F7363890069B2F1 /* HotKey.swift */,
 				65D87A011F7363890069B2F1 /* HotKeysController.swift */,
 				65D87A001F7363890069B2F1 /* Key.swift */,
 				65D87A021F7363890069B2F1 /* KeyCombo.swift */,
 				65D879FE1F7363880069B2F1 /* NSEventModifierFlags+HotKey.swift */,
 			);
-			path = tyke;
+			path = HotKey;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
